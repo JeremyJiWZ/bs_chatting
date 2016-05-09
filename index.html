@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Mango</title>
+	<script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("p").click(function(){
+				$(this).hide();
+			});
+		});
+//		alert(document.lastModified);
+		
+	</script>
+</head>
+<body>
+	<div class="mainbox">
+    <ul class="nav nav-tabs nav-my" role="tablist" id="myTab">
+        <li class="active" id="nav-login"><a href="#" role="tab" data-toggle="tab" >登录</a></li>
+        <li id="nav-register"><a href="#" role="tab" data-toggle="tab" >注册</a></li>
+    </ul>
+    <div class="tab-content">
+        <div >
+            <div class="form-group">
+                <label for="username">User name</label>
+                <input type="text" ID="username" class="form-control" placeholder="User name">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-default btn-my" id="loginOrRegister">登录</button>
+        		<p>If you click on me, I will disappear</p>
+        		<p>嘻嘻嘻</p>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
