@@ -1,0 +1,447 @@
+body{
+	background: url(../image/first.jpg);
+	background-size: 100%;
+	}
+.main{
+	position:absolute;
+	top:50%;
+	left:50%;
+	width:1000px;
+	height:600px;
+	background:#FFF;
+	margin-left:-500px;
+	margin-top:-300px;
+	}
+.main-left{
+	position:relative;
+	height:100%;
+	width:280px;
+	float:left;
+	background:#2e3238;
+	}
+.main-left-nav{
+	width:244px;
+	height:40px;
+	padding:18px;
+	position: relative;
+	}
+.main-left-nav-image{
+	width:50px;
+	height:40px;
+	float:left;
+	}
+.main-left-nav-info{
+	float:left;
+	width:194px;
+	height:40px;
+	line-height:40px;
+	}
+.main-left-nav-info>h3{
+	display:block;
+	height:40px;
+	width:80px;
+	margin:0;
+	float:left;
+	color:#FFF;
+	}
+.main-left-nav-info>a{
+	display:block;
+	width:40px;
+	height:40px;
+	float:right;
+	}
+.main-left-nav-info-1 {
+background:url(../image/sprite27fe59.png) 0 -400px;
+width: 30px;
+height: 30px;
+vertical-align: middle;
+display: inline-block;
+}
+
+.main-left-button{
+	width:280px;
+	height:40px;
+	background:#E0F3FC
+	}
+.search_bar {
+	position: relative;
+	width: 244px;
+	height:32px;
+	margin: 0 auto 6px;
+	background-color: #26292E;
+}
+.web_wechat_search {
+	background: url(../image/sprite27fe59.png) 0 -1946px;
+	width: 30px;
+	height: 30px;
+	vertical-align: middle;
+	display:inline-block;
+}
+.search_bar .frm_search {
+	width: 214px;
+	height: 32px;
+	line-height: 32px;
+	border: 0;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	color: #fff;
+	padding-left: 30px;
+	font-size: 12px;
+	-webkit-transform:translateY(-30px);
+	-moz-transform:translateY(-30px);
+	-ms-transform:translateY(-30px);
+	-o-transform:translateY(-30px);
+	transform:translateY(-30px);
+	background-color:transparent
+}
+.tab {
+	overflow: hidden;
+	position: relative;
+	padding-bottom: 4px;
+	border-bottom:1px solid #24272C;
+}
+.tab_item {
+	width: 130px;
+	height:35px;
+	display:inline-block;
+}
+.web_wechat_tab_chat {
+	background: url(../image/sprite27fe59.png) 0 -2083px;
+	width: 35px;
+	height: 35px;
+	margin-left:40%;
+	display: inline-block;
+}
+.web_wechat_tab_friends {
+	background: url(../image/sprite27fe59.png) 0 -2140px;
+	width:35px;
+	height:35px;
+	margin-left:40%;
+	display:inline-block;
+}
+.chat{
+	width: 130px;
+	height:35px;
+	display:inline-block;
+}
+.allchatmessage{
+	overflow:auto;
+	height:443px;
+	}
+.chatmessage{
+	height:40px;
+	padding:10px;
+	border-bottom:1px solid #24272C;
+	}
+.chatmessage-1{
+	height:40px;
+	width:250px;	
+	}
+
+.chatmessage-1-image{
+	width:50px;
+	height:40px;
+	float:left;
+	}
+.chatmessage-1-info{	
+	float:left;
+	width:194px;
+	height:40px;
+	}
+.chatmessage-1 .chatmessage-1-info>h4{
+	display:block;
+	height:40px;
+	width:80px;
+	margin:0;
+	float:left;
+	color:#FFF;
+	}
+.main-right{
+	background:#FFF;
+	height:600px;
+	width:680px;
+	margin-left:300px;
+	margin-top:-19px;
+	}
+.main-right-nav{
+	height:60px;
+	line-height:60px;
+	text-align:center;
+	border-bottom:1px solid #CCC;
+	}
+.main-right-chatmessage{
+	height:350px;
+	border-bottom:1px solid #CCC;
+	overflow-y:auto;
+	overflow-x: hidden;
+	}
+.main-right-sendmessage{
+	height:170px;
+	}
+.main-right-writemessage{
+	display:block;
+	height:125px;
+	width:675px;
+	overflow-y:hidden;
+	border:0;
+	resize:none;
+	}
+.main-right-sendmessagebutton{
+	position:relative;
+	float:right;
+	height:35px;
+	width:100px;
+	border-radius:5px;
+	background-color:transparent;
+	}
+.main-right-chatmessage-1{
+	width:400px;
+	height:auto;
+	background:#3FF;
+	float:right;
+	margin-bottom:10px;
+	}
+.main-right-chatmessage-1-my{
+	display:inline-block;
+	border:1px solid #000;
+	height:auto;
+	line-height:40px;
+	width:335px;
+	padding-left:10px;
+	}
+.content{
+	margin-top:5px;
+	width:675px;
+	clear:both;
+	margin-right:50px;
+	}
+.bubble {
+	float:right;
+	max-width: 500px;
+	min-height: 1em;
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	text-align: left;
+	font-size: 14px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	margin: 5px 10px;
+	
+}
+.bubble:before,.bubble:after {
+	position:absolute;
+	top: 14px;
+	right:-2px;;
+	border: 6px solid transparent;
+	content: " ";
+	background:#b2e281;
+	-webkit-transform:rotate(45deg);
+	transform:rotate(45deg);
+}
+.bubble_cont {
+	word-wrap: break-word;
+	word-break: break-all;
+	min-height: 25px;
+	background:#b2e281;
+	display:inline-block;
+}
+.bubble_cont .plain {
+	padding: 9px 13px;
+}
+pre {
+	margin: 0;
+	font-family: inherit;
+	font-size: inherit;
+	white-space: pre-wrap;
+	word-break: initial;
+}
+.bubble_1 {
+	float:left;
+	max-width: 500px;
+	min-height: 1em;
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	text-align: left;
+	font-size: 14px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	margin: 5px 10px;
+}
+.bubble_1:before,.bubble_2:after {
+	position:absolute;
+	top: 14px;
+	left:-2px;;
+	border: 6px solid transparent;
+	content: " ";
+	background:#b2e281;
+	-webkit-transform:rotate(45deg);/*旋转函数*/
+	transform:rotate(45deg);
+}
+.myfriends{
+	overflow:auto;
+	height:500px;
+	}
+.bianhao{
+	color:#FFF;
+	margin-left:10px;
+	height:20px;
+	border-bottom:1px solid #24272C;
+	}
+.dropdown_memu{
+	position: absolute;
+	background: #FFF;
+	width:170px;
+	height:150px;
+	margin-left: -190px;
+	margin-top:60px;
+
+	display:none;
+	z-index: 1000;
+	border: 1px solid #a4a4a4;
+	border-radius: 5px;
+}
+.dropdown_memu ul{
+	display:block;
+	list-style-type: none;
+	padding:0;
+	margin:0;
+}
+.dropdown_memu ul li{
+	display:list-item;
+	height:50px;
+	line-height: 50px;
+	border-bottom:1px solid #24272C;
+}
+.dropdown_memu ul li a{
+	display:block;
+	height:50px;
+	width:170px;
+	text-decoration:none;
+}
+.menuicon_friend{
+	background: url(../image/sprite27fe59.png) 0 -170px;
+	width: 34px;
+	height: 34px;
+	vertical-align: middle;
+	display: inline-block;
+	margin-left:10px;
+}
+.menuicon_chat{
+	background: url(../image/sprite27fe59.png) 0 -66px;
+	width: 34px;
+	height: 34px;
+	vertical-align: middle;
+	display: inline-block;
+	margin-left:10px;
+}
+.menuicon_setting{
+	background: url(../image/sprite27fe59.png) 0 -432px;
+	width: 34px;
+	height: 34px;
+	vertical-align: middle;
+	display: inline-block;
+	margin-left:10px;
+}
+.menuicon_quit{
+	background: url(../image/sprite27fe59.png) 0 -270px;
+	width: 34px;
+	height: 34px;
+	vertical-align: middle;
+	display: inline-block;
+	margin-left:10px;
+}
+
+.main-right-change{
+	margin-top:50px;
+}
+
+.main-right-change ul{
+	display:block;
+	list-style-type: none;
+	padding:0;
+	margin:0;
+	border:1px solid #24272C;
+	border-radius: 5px
+}
+.main-right-change ul li{
+	display:list-item;
+	height:50px;
+	line-height: 50px;
+	border-bottom:1px solid #24272C;;
+	padding-left:30px;
+}
+.main-right-change ul li span{
+	float:right;
+	margin-right:20px;
+	height:50px;
+}
+.main-right-change ul li input{
+	height:30px;
+	font-size:14px;
+	float:right;
+	margin-top:9px;
+}
+.main-right-change button {
+	width: 140px;
+	height: 40px;
+	float: right;
+}
+.main-right-friend{
+	height: 200px;
+	width: 350px;
+	margin-top: 100px;
+	margin-left:200px;
+}
+.main-right-friend input{
+	border-radius: 5px;
+	height:30px;
+	width: 300px;
+	margin-bottom: 20px;
+	text-align: center;
+	font-size: 20px;
+}
+.main-right-friend button{
+	width: 140px;
+	height: 40px;
+	margin-left: 80px;
+}
+#rightmenu{
+	background: #FFF;
+	width:140px;
+	height:80px;
+	border: 1px solid #a4a4a4;
+	border-radius: 5px;
+}
+#rightmenu ul{
+	display:block;
+	list-style-type: none;
+	padding:0;
+	margin:0;
+}
+#rightmenu ul li{
+	display:list-item;
+	height:39px;
+	line-height: 39px;
+	border-bottom:1px solid #24272C;
+}
+#rightmenu ul li a{
+	display:block;
+	height:39px;
+	width:140px;
+	margin-left: 20px;
+	text-decoration:none;
+}
+.littleSign{
+	display:none;
+	width:10px;
+	height:10px;
+	background:#ffff00;
+	margin-top:-48px;
+	margin-left:255px;
+	border-radius: 5px;
+}
