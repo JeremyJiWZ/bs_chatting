@@ -192,7 +192,7 @@ var registerCtrls=angular.module('registerCtrls', []);
 registerCtrls.controller('registerCtrl1',function($scope,$http,$state,$rootScope){
 	//登陆提交处理
 	$scope.loginSub=function(){
-		 $http.post('http://119.29.26.47:8080/v1/users/authorization',$scope.loginMessage.message)
+		 $http.post('http://127.0.0.1:8080/authorization',$scope.loginMessage.message)
 	        .success(function(data, status, headers, config) {
 	            $scope.userMessage.token=headers('x-auth-token');
 	            $
@@ -208,31 +208,10 @@ registerCtrls.controller('registerCtrl1',function($scope,$http,$state,$rootScope
 	        		alert("未知错误!");
 	        	//console.log(data);
     });
-	   //      $http({
-				// method: 'post',
-				// url: 'http://119.29.26.47:8080/v1/users/authorization',
-				// data:$scope.loginMessage
-				// }).then(function(resp) {
-				// // 读取X-Auth-ID
-				// $scope.userMessage.token=resp.headers('x-auth-token');
-	   //          console.log(resp.headers('x-auth-token'));
-	   //          $scope.getUserMessage();
-	   //          $state.go('main',{},{reload:true});
-				// });
-   		// $.ajax({
-   		// 	type:'post',
-   		// 	url:'http://119.29.26.47:8080/v1/users/authorization',
-   		// 	data:$scope.loginMessage,
-   		// 	success:function(data,request){
-   		// 		$scope.userMessage.token=request.getResponseHeader('x-auth-token');
-   		// 		console.log(request.getResponseHeader('x-auth-token'));
-   		// 	}
-   		// })
-
 	};
 	//注册提交处理
 	$scope.registerSub=function(){
-		 $http.post('http://119.29.26.47:8080/v1/users',$scope.registerMessage.message)
+		 $http.post('http://119.29.26.47:8080/user/register',$scope.registerMessage.message)
 	        .success(function(data) {
 	            // console.log(data);
 	            // $state.go('main',{},{reload:true});
