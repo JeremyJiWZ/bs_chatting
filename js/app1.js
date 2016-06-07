@@ -85,16 +85,24 @@ angular.module('weChat',['ui.router'])
 .controller('loginCtrl',['$scope','$state','$http',function($scope,$state,$http){
 	//do anything
 	$scope.loginSub=function(){
-		$http.post('http:127.0.0.1:8080/authorization',$scope.loginMessage.message)
-			.success(function(){
+		console.log($scope.loginMessage.message);
+		$http({
+			method:'post',
+			url:'http://127.0.0.1:8080/authorization',
+			headers: {'Content-Type': 'application/json'},
+			data:$scope.loginMessage.message
+		})
+		.success(function(data){
 				
 				$state.go('main',{},{reload:true});
 			})
-			.error(function(){
-				
-				
-				alert('用户名或密码错误');
-			});
+		.error(function(){
+			
+			alert('用户名或密码错误!');
+		}
+		);
+		
+
 //		$http.post('http://127.0.0.1:8080/authorization',$scope.loginMessage.message)
 //	        .success(function(data, status, headers, config) {
 //	            $scope.userMessage.token=headers('x-auth-token');
@@ -112,4 +120,38 @@ angular.module('weChat',['ui.router'])
 	}
 //	$state.go('main',{},{reload:true});
 	
-}]);
+}])
+.controller('mainCtrl1',function($scope,$state,$http){
+	$scope.userMessage={
+		"token" : '4d7e4ba0-dc4a-11e3-90d5-e1ffbaacdaf5',
+		"user":{
+			"id":"7f90f7ca-bb24-11e2-b2d0-6d8e359945e4",
+			"name":"梓晨宝宝",
+			"nick":"Vincent_Baby",  
+			"sex":"男",
+			"phone":"18812123456",
+			"email":"15666@qq.com",
+			"avatar":"image/figure.JPG",
+			"sign_info":"咦~好恶心的" 
+		    }
+	};
+	$scope.chatList={
+		"friends":[]
+	};
+	$scope.chatPools=[{
+			"name":"",
+			"message":[
+				{
+					'from':true,
+					'content':""
+				}
+			]
+		}
+	];
+	$scope.currentChat={
+		'name':'',
+		'message':[],
+	};
+	var stompClient = null;
+	
+});
