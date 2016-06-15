@@ -50,25 +50,8 @@ function connect() {
             	'content':message.content
             });	
         	isHave(message.fromUser);
-      //       if(message.fromUser==$scope.currentChat.name){
-	     //        var label =$("<div class='content'>"
-	     //        +"<div class='chatmessage-1-image' style='float:left;'>"
-	     //        +"<img src='image/cong.jpg' width='40px' height='40px'/>"
-	     //        +"</div>"
-	     //        +"<div class='bubble_1'>"
-	     //        +"<div class='bubble_cont'>"
-	     //        +"<div class='plain'>"
-	     //        +"<pre class='js_message_plain ng-binding'>"+message.content+"</pre>"
-	     //        +"</div>"
-	     //        +"</div>"
-	     //        +"</div>"
-	     //        +"</div>");
-	     //    	$(".main-right-chatmessage").append(label);
-    		// }
-    		// else{
-
-    		// }
-        });
+       });
+       
          stompClient.subscribe("/queue/system/"+user, function(msg) {
             // handle position update
             console.log(msg);

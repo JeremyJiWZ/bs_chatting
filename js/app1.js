@@ -1,3 +1,5 @@
+var user_info = {};
+
 angular.module('weChat',['ui.router'])
 .config(function($stateProvider,$urlRouterProvider){
 	$stateProvider
@@ -13,6 +15,9 @@ angular.module('weChat',['ui.router'])
                 },
                 'leftview@main':{
                     templateUrl:'tpls/chatlist.html'
+                },
+                'rightview@main':{
+                		templateUrl:'tpls/chatpage.html'
                 }
             }
         })
@@ -83,7 +88,8 @@ angular.module('weChat',['ui.router'])
 	$urlRouterProvider.otherwise('login');
 })
 .controller('loginCtrl',['$scope','$state','$http',function($scope,$state,$http){
-	//do anything
+	
+	//login
 	$scope.loginSub=function(){
 		console.log($scope.loginMessage.message);
 		$http({
@@ -93,32 +99,38 @@ angular.module('weChat',['ui.router'])
 			data:$scope.loginMessage.message
 		})
 		.success(function(data){
-				
+				user_info=data;
+//				console.log(data);
 				$state.go('main',{},{reload:true});
 			})
-		.error(function(){
-			
-			alert('用户名或密码错误!');
+		.error(function(data){
+			if(data=="invalid")
+				alert('用户名或密码错误!');
+			else
+				alert('未知错误');
 		}
 		);
-		
-
-//		$http.post('http://127.0.0.1:8080/authorization',$scope.loginMessage.message)
-//	        .success(function(data, status, headers, config) {
-//	            $scope.userMessage.token=headers('x-auth-token');
-//	            $
-//	            // console.log(headers('x-auth-token'));
-//	            $scope.getUserMessage();
-//	            // while($scope.chatList.friends==null);
-//	            $state.go('main',{},{reload:true});
-//				})
-//	        .error(function(data, status, headers, config){
-//	     		if(data.error=="invalid_grant")
-//	     			alert("用户名或密码错误！");
-//	     		else
-//	        		alert("未知错误!");
 	}
-//	$state.go('main',{},{reload:true});
+	
+	$scope.registerSub=function(){
+		$http.post('http://127.0.0.1:8080/register',$scope.registerMessage.message)
+	        .success(function(data) {
+	            console.log(data);
+//	            $scope.loginMessage.message.name=$scope.registerMessage.message.name;
+//	            $scope.loginMessage.message.password=$scope.registerMessage.message.password;
+//	            console.log($scope.loginMessage.message);
+//	            $scope.loginSub();
+				alert('注册成功！请登录');
+				$state.go('login');
+				})
+	        .error(function(data){
+	        		console.log(data);
+	     		if(data=="info_duplicate")
+	     			alert("用户名已存在！");
+	     		else
+	        		alert("未知错误!");
+    });
+	}
 	
 }])
 .controller('mainCtrl1',function($scope,$state,$http){
@@ -154,4 +166,72 @@ angular.module('weChat',['ui.router'])
 	};
 	var stompClient = null;
 	
-});
+	//initial the user infomation
+	(function(){
+		console.log("the user: "+user_info['name']);
+		$scope.userMessage['user']['name']=user_info['name'];
+		console.log("the user2: "+$scope.userMessage['user']['name']);
+	});
+	$scope.userMessage['user']['name']=user_info['name'];
+	
+	
+	
+})
+.controller('friendListCtrl',function($scope,$state,$http){
+//	createlist();
+	for (var i = 0; i<listarray.length;i++) {
+        var list = $(
+            "<div class='chatmessage' context-menu target='rightmenu'>"
+            + "<a onclick='chatwith(this)' href='#/main/friendlist' >"
+            + "<div class='chatmessage-1'>"
+            + "<div class='chatmessage-1-image'>"
+            + "<img src= '"+listarray[i].img_src+"' width='40px' height='40px'  />"
+            + "</div>"
+            + "<div class='chatmessage-1-info'>"
+            + "<h4>" + listarray[i].name + "</h4>"
+            + "</div>"
+            + "</div>"
+            + "</a>"
+            + "</div>"
+        );
+        $(".myfriends").append(list);
+    };
+	
+})
+.controller('chatPageCtrl',function($scope,$state,$http){
+	$scope.sendMessageSub=function(){
+//		sendto();
+		sendMessage();
+	};
+	//发送消息函数
+	function sendMessage()
+	{
+    		if($(".main-right-writemessage").val()==""){
+        		alert("内容不能为空！");
+    		}
+    		else {
+        		var msg = {
+            		"fromUser": user_info['name'],
+            		"content": $(".main-right-writemessage").val(),
+            		"toUser": chatWithThis
+        		};
+        
+        var msg_str = JSON.stringify(msg);
+        postMessage(msg_str);
+        sendto();
+    }
+    	function postMessage(msg_str){
+    		$http.post('http://127.0.0.1:8080/chat',msg_str)
+	        .success(function(data) {
+	            console.log(data);
+	            
+				})
+	        .error(function(data){
+	        		alert("连接断开！");
+	        		$state.go('login');
+	        });
+    	}
+}
+})
+
+
