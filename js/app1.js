@@ -150,20 +150,7 @@ angular.module('weChat',['ui.router'])
 	$scope.chatList={
 		"friends":[]
 	};
-	$scope.chatPools=[{
-			"name":"",
-			"message":[
-				{
-					'from':true,
-					'content':""
-				}
-			]
-		}
-	];
-	$scope.currentChat={
-		'name':'',
-		'message':[],
-	};
+
 	var stompClient = null;
 	
 	//initial the user infomation
@@ -200,20 +187,12 @@ angular.module('weChat',['ui.router'])
 	
 })
 .controller('chatPageCtrl',function($scope,$state,$http){
-	var newMessage = false;
+//	var newMessage = {value: false};
 	$scope.sendMessageSub=function(){
 //		sendto();
 		sendMessage();
 	};
-	$scope.chatPools=[{
-			"name":"",
-			"message":[
-				{
-					'from':true,
-					'content':""
-				}
-			]
-		}
+	$scope.chatPools=[
 	];
 	$scope.currentChat={
 		'name':'',
@@ -221,13 +200,20 @@ angular.module('weChat',['ui.router'])
 	};
 	
 //	setInterval(function(){
-//		postMessage();
-//		if(newMessage){
-//			deleteChats();
+//		getMessage(user_info);
+//		console.log(newMessage.value);
+//		if(newMessage.value){
+////			deleteChats();
 //			drawAllchats();
 //		}
-//		newMessage=false;
+//		newMessage.value=false;
 //	},1000);
+//	console.log(user_info['name']);
+	getMessage(user_info);
+//	drawAllchats();
+	(function(){
+		drawAllchats();
+	}());
 	
 	//发送消息函数
 	function sendMessage()
@@ -243,11 +229,13 @@ angular.module('weChat',['ui.router'])
             		"content": $(".main-right-writemessage").val(),
             		"toUser": chatWithThis
         		};
-        
-        var msg_str = JSON.stringify(msg);
-        postMessage(msg_str);
-  		$(".main-right-writemessage").val("");
-        sendto();
+        		console.log(msg);
+        		addChatPools(msg.fromUser,false,msg.content);
+        		var msg_str = JSON.stringify(msg);
+        		postMessage(msg_str);
+			$(".main-right-writemessage").val("");
+        		sendto(msg.content);
+       }
     }
     	function postMessage(msg_str){
     		$http.post('http://127.0.0.1:8080/chat',msg_str)
@@ -259,41 +247,53 @@ angular.module('weChat',['ui.router'])
 	        		$state.go('login');
 	        });
     	}
-    	function getMessage(){
-    		$http.get('http://127.0.0.1:8080/chatlist',user_info['name'])
+    	
+    	function getMessage(user_name){
+//  		console.log(user_name);
+    		$http.post('http://127.0.0.1:8080/messagelist',user_name)
 	        .success(function(data) {
 	            console.log(data);
-	            if(data.length>0) newMessage=true;
+//	            if(data.length>0) newMessage.value=true;
 	        		for(var i=0; i<data.length; i++){
-	        			addCharPools(data[i].from_user,true,date[i].content)
+	        			addChatPools(data[i].from_user,true,data[i].content)
 	        		}
+	        		drawAllchats();
 			})
 	        .error(function(data){
-	        		alert("连接断开！");
-	        		$state.go('login');
+//	        		alert("连接断开！");
+//	        		$state.go('login');
 	        });
     	}
     	
-    	function addCharPools(friendName,from,content){
+    	function addChatPools(friendName,from,content){
     		var i;
-    		for(i=0;$scope.chatPools[i].name!=null&&$scope.chatPools[i].name!=friendName;i++);
-    		$scope.chatPools[i].message.push({
+    		console.log($scope.chatPools);
+    		for(i=0;i<$scope.chatPools.length&&$scope.chatPools[i]['name']!=friendName;i++);
+    		if(!$scope.chatPools[i])	$scope.chatPools[i]={'name':friendName, 'message':[]};
+		$scope.chatPools[i].message.push({
     			'from':from,
     			'content':content
     		});
     	}
     	function drawAllchats(){
     		var i;
-    		for(i=0; $scope.chatPools[i].name!=chatWithThis; i++);
+    		console.log(i);
+    		for(i=0; i<$scope.chatPools.length && $scope.chatPools[i].name!=chatWithThis; i++);
+    		console.log(i);
+    		if(!$scope.chatPools[i]) return;
     		var j;
     		for(j=0; j<$scope.chatPools[i].message.length; j++){
-    			if(from)
-    				getfrom($scope.chatPools[i].message.content);
-    			else
-    				sendto($scope.chatPools[i].message.content);
+    			if($scope.chatPools[i].message[j].from){
+    				getfrom($scope.chatPools[i].message[j].content);
+    				console.log($scope.chatPools[i].message[j].content);	
+    			}
+    			else{
+    				sendto($scope.chatPools[i].message[j].content);
+    				console.log($scope.chatPools[i].message[j].content);	
+    			}
     		}
     	}
-}
+
 })
 
 

@@ -34,8 +34,10 @@ function constructUserJson(input,result){
 function constructMessage(input){
     var result = [];
     for (var i = 0; i < input.length; i++) {
-        result[i].from_user = input[i].src_name;
-        result[i].content = input[i].content;
+        result[i]={
+            'from_user': input[i].src_name,
+            'content': input[i].content
+        }
     }
     return result;
 }
@@ -174,7 +176,7 @@ router.post('/chat',function(req,res){
     })
 });
 
-router.get('/chatlist',function(req,res){
+router.post('/messagelist',function(req,res){
     var user_name = req.body.name;
     var queryState = "select * from message where dst_name = \'"+
                     user_name+"\' and flag = \'0\';";
@@ -183,10 +185,15 @@ router.get('/chatlist',function(req,res){
         if(err) throw err;
         var messageList;
         messageList=constructMessage(rows);
+        console.log(messageList);
         (function(){
+            var updateState = "update message set flag = 1 where dst_name = \'"+user_name+"\';";
+            console.log(updateState);
+            client.query(updateState);
             res.send(messageList);
         }());        
     })
+    // res.send("yes");
 });
 
 router.get('/',function(req,res){
