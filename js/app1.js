@@ -179,6 +179,7 @@ angular.module('weChat',['ui.router'])
 })
 .controller('friendListCtrl',function($scope,$state,$http){
 //	createlist();
+
 	for (var i = 0; i<listarray.length;i++) {
         var list = $(
             "<div class='chatmessage' context-menu target='rightmenu'>"
@@ -199,16 +200,43 @@ angular.module('weChat',['ui.router'])
 	
 })
 .controller('chatPageCtrl',function($scope,$state,$http){
+	var newMessage = false;
 	$scope.sendMessageSub=function(){
 //		sendto();
 		sendMessage();
 	};
+	$scope.chatPools=[{
+			"name":"",
+			"message":[
+				{
+					'from':true,
+					'content':""
+				}
+			]
+		}
+	];
+	$scope.currentChat={
+		'name':'',
+		'message':[],
+	};
+	
+//	setInterval(function(){
+//		postMessage();
+//		if(newMessage){
+//			deleteChats();
+//			drawAllchats();
+//		}
+//		newMessage=false;
+//	},1000);
+	
 	//发送消息函数
 	function sendMessage()
 	{
     		if($(".main-right-writemessage").val()==""){
         		alert("内容不能为空！");
     		}
+    		else if(chatWithThis=='')
+    			alert("请选择一个联系人！");
     		else {
         		var msg = {
             		"fromUser": user_info['name'],
@@ -218,18 +246,52 @@ angular.module('weChat',['ui.router'])
         
         var msg_str = JSON.stringify(msg);
         postMessage(msg_str);
+  		$(".main-right-writemessage").val("");
         sendto();
     }
     	function postMessage(msg_str){
     		$http.post('http://127.0.0.1:8080/chat',msg_str)
 	        .success(function(data) {
 	            console.log(data);
-	            
 				})
 	        .error(function(data){
 	        		alert("连接断开！");
 	        		$state.go('login');
 	        });
+    	}
+    	function getMessage(){
+    		$http.get('http://127.0.0.1:8080/chatlist',user_info['name'])
+	        .success(function(data) {
+	            console.log(data);
+	            if(data.length>0) newMessage=true;
+	        		for(var i=0; i<data.length; i++){
+	        			addCharPools(data[i].from_user,true,date[i].content)
+	        		}
+			})
+	        .error(function(data){
+	        		alert("连接断开！");
+	        		$state.go('login');
+	        });
+    	}
+    	
+    	function addCharPools(friendName,from,content){
+    		var i;
+    		for(i=0;$scope.chatPools[i].name!=null&&$scope.chatPools[i].name!=friendName;i++);
+    		$scope.chatPools[i].message.push({
+    			'from':from,
+    			'content':content
+    		});
+    	}
+    	function drawAllchats(){
+    		var i;
+    		for(i=0; $scope.chatPools[i].name!=chatWithThis; i++);
+    		var j;
+    		for(j=0; j<$scope.chatPools[i].message.length; j++){
+    			if(from)
+    				getfrom($scope.chatPools[i].message.content);
+    			else
+    				sendto($scope.chatPools[i].message.content);
+    		}
     	}
 }
 })

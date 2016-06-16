@@ -1,13 +1,20 @@
-var number = 1;
+var numberFrom = 1;
+var numberSend = 1;
 var test = "id";
 var chatWithThis = "";
+//function deleteChats(){
+//	var a = document.getElementsByClassName("content");
+//	$(.main-right-chatmessage).removeChild(a)
+//}
 function chatwith(e){
 	var name = $(e).children(".chatmessage-1").children(".chatmessage-1-info").children("h4").text();
+//	if(name!=chatWithThis)
+//		deleteChats();
 	chatWithThis = name;
 	$(".main-right .main-right-nav h2").text(name);
 }
-function getfrom(){
-  var testid = test + number ;
+function getfrom(content){
+  var testid = test + numberFrom ;
   var $html =$("<div class='content'>"     
 		+"<div class='chatmessage-1-image' >"
 		+"<img src='image/cong.jpg' width='40px' height='40px'/>"
@@ -21,14 +28,12 @@ function getfrom(){
 		+"</div>"
 		+"</div>");
   $(".main-right-chatmessage").append($html);
-  var message = $(".main-right-writemessage").val();
   var idtest = "#" + testid ;
-  $(idtest).text(message);
-  $(".main-right-writemessage").val("");
-  number = number + 1;
+  $(idtest).text(content);
+  numberFrom = numberFrom + 1;
 }
-function sendto(){
-  var testid = test + number ;
+function sendto(content){
+  var testid = test + numberSend ;
   var $html =$("<div class='content'>"     
 		+"<div class='chatmessage-1-image' style='float:right;'>"
 		+"<img src='image/cong.jpg' width='40px' height='40px'/>"
@@ -44,9 +49,8 @@ function sendto(){
   $(".main-right-chatmessage").append($html);
   var message = $(".main-right-writemessage").val();
   var idtest = "#" + testid ;
-  $(idtest).text(message);
-  $(".main-right-writemessage").val("");
-  number = number + 1;
+  $(idtest).text(content);
+  numberSend = numberSend + 1;
 }
 function change_web_wechat_tab_chat(e){
 	$(e).children("i").css("background","url(./image/sprite27fe59.png) 0 -2083px");

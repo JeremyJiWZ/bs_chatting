@@ -22,6 +22,6 @@ create table message (
 	src_name varchar(20),
 	dst_name varchar(20),
 	content varchar(10000),
-	send_time date,
+	send_time timestamp(14) DEFAULT CURRENT_TIMESTAMP,
 	flag smallint
 )DEFAULT CHARSET=utf8;

@@ -1,3 +1,5 @@
+var moment = require('moment');
+var mysql = require('mysql');
 var express = require('express');
 var mysql = require('mysql');
 var app = express();
@@ -29,7 +31,14 @@ function constructUserJson(input,result){
     return result;
 }
 
-
+function constructMessage(input){
+    var result = [];
+    for (var i = 0; i < input.length; i++) {
+        result[i].from_user = input[i].src_name;
+        result[i].content = input[i].content;
+    }
+    return result;
+}
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -156,12 +165,27 @@ router.post('/chat',function(req,res){
     var insertMessage = "insert into message values (\'"+
                         src_name+'\',\''+
                         dst_name+'\',\''+
-                        content+'\',\''+
-                        Date()+'\',\''+
-                        '0\')';
+                        content+'\','+
+                        'null,\''+
+                        '0\');';
     console.log(insertMessage);
     client.query(insertMessage,function(){
         res.send("yes!");
+    })
+});
+
+router.get('/chatlist',function(req,res){
+    var user_name = req.body.name;
+    var queryState = "select * from message where dst_name = \'"+
+                    user_name+"\' and flag = \'0\';";
+    console.log(queryState);
+    client.query(queryState,function(err,rows){
+        if(err) throw err;
+        var messageList;
+        messageList=constructMessage(rows);
+        (function(){
+            res.send(messageList);
+        }());        
     })
 });
 
