@@ -1,21 +1,36 @@
 var numberFrom = 1;
 var numberSend = 1;
+var friendClick = false;
 var test = "id";
+var incomingID = "fromid";
+var sendingID = "sendid";
 var chatWithThis = "";
-//function deleteChats(){
-//	var a = document.getElementsByClassName("content");
-//	$(.main-right-chatmessage).removeChild(a)
-//}
+function deleteChats(){
+	var testid ="";
+	var a = $(".main-right-chatmessage");
+	for(var i=1; i<numberFrom; i++){
+		testid = "fromid"+i;
+		var o = $("#"+testid);
+		a.remove(o);
+	}
+	for(var i=1; i<numberSend; i++){
+		testid = "sendid"+i;
+		var o = $("#"+testid);
+		a.remove(o);
+	}
+
+}
 function chatwith(e){
 	var name = $(e).children(".chatmessage-1").children(".chatmessage-1-info").children("h4").text();
-//	if(name!=chatWithThis)
-//		deleteChats();
+	if(name!=chatWithThis)
+		friendClick=true;
 	chatWithThis = name;
 	$(".main-right .main-right-nav h2").text(name);
 }
 function getfrom(content){
-  var testid = test + numberFrom ;
-  var $html =$("<div class='content'>"     
+  var fromid = "fromid" + numberFrom; 
+  var testid = "idget" + numberFrom ;
+  var $html =$("<div class='content' id="+fromid+">"     
 		+"<div class='chatmessage-1-image' >"
 		+"<img src='image/cong.jpg' width='40px' height='40px'/>"
 		+"</div>"
@@ -33,8 +48,9 @@ function getfrom(content){
   numberFrom = numberFrom + 1;
 }
 function sendto(content){
-  var testid = test + numberSend ;
-  var $html =$("<div class='content'>"     
+  var sendid = "sendid" + numberSend;
+  var testid = "idsend" + numberSend ;
+  var $html =$("<div class='content' id="+sendid+">"     
 		+"<div class='chatmessage-1-image' style='float:right;'>"
 		+"<img src='image/cong.jpg' width='40px' height='40px'/>"
 		+"</div>"

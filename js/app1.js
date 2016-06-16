@@ -187,7 +187,6 @@ angular.module('weChat',['ui.router'])
 	
 })
 .controller('chatPageCtrl',function($scope,$state,$http){
-//	var newMessage = {value: false};
 	$scope.sendMessageSub=function(){
 //		sendto();
 		sendMessage();
@@ -199,21 +198,16 @@ angular.module('weChat',['ui.router'])
 		'message':[],
 	};
 	
-//	setInterval(function(){
-//		getMessage(user_info);
-//		console.log(newMessage.value);
-//		if(newMessage.value){
-////			deleteChats();
-//			drawAllchats();
-//		}
-//		newMessage.value=false;
-//	},1000);
-//	console.log(user_info['name']);
-	getMessage(user_info);
-//	drawAllchats();
-	(function(){
-		drawAllchats();
-	}());
+	setInterval(function(){
+		getMessage(user_info);
+		console.log(friendClick);
+		if(friendClick)
+		{
+			deleteChats();
+			drawAllchats();
+			friendClick = false;
+		}
+	},1000);
 	
 	//发送消息函数
 	function sendMessage()
@@ -233,8 +227,9 @@ angular.module('weChat',['ui.router'])
         		addChatPools(msg.fromUser,false,msg.content);
         		var msg_str = JSON.stringify(msg);
         		postMessage(msg_str);
-			$(".main-right-writemessage").val("");
         		sendto(msg.content);
+			$(".main-right-writemessage").val("");
+
        }
     }
     	function postMessage(msg_str){
@@ -252,12 +247,16 @@ angular.module('weChat',['ui.router'])
 //  		console.log(user_name);
     		$http.post('http://127.0.0.1:8080/messagelist',user_name)
 	        .success(function(data) {
+	        		var newMessage=false;
 	            console.log(data);
-//	            if(data.length>0) newMessage.value=true;
+	            if(data.length>0) newMessage=true;
 	        		for(var i=0; i<data.length; i++){
 	        			addChatPools(data[i].from_user,true,data[i].content)
 	        		}
-	        		drawAllchats();
+	        		if(newMessage){
+	        			newMessage=false;
+	        			for(i=0; i<data.length;i++) if(data[i].from_user==chatWithThis) getfrom(data[i].content);
+	        		}
 			})
 	        .error(function(data){
 //	        		alert("连接断开！");
@@ -277,9 +276,8 @@ angular.module('weChat',['ui.router'])
     	}
     	function drawAllchats(){
     		var i;
-    		console.log(i);
     		for(i=0; i<$scope.chatPools.length && $scope.chatPools[i].name!=chatWithThis; i++);
-    		console.log(i);
+    		console.log($scope.chatPools[i]);
     		if(!$scope.chatPools[i]) return;
     		var j;
     		for(j=0; j<$scope.chatPools[i].message.length; j++){
