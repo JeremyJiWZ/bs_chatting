@@ -192,6 +192,7 @@ angular.module('weChat',['ui.router'])
 //		sendto();
 		sendMessage();
 	};
+	
 	$scope.chatPools=[
 	];
 	$scope.currentChat={

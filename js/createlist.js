@@ -1,9 +1,9 @@
 //生成左侧列表
 var liststr;
 var listarray=[
-    {"name":"lucas95123","id":"1","img_src":"image/figure.JPG"},
-    {"name":"jiwenzhong","id":"2","img_src":"image/figure.JPG"},
-    {"name":"赵冠淳","id":"3","img_src":"image/figure.JPG"},
+    {"name":"lucas95123","id":"1","img_src":"image/lucas95123.jpg"},
+    {"name":"jiwenzhong","id":"2","img_src":"image/jiwenzhong.jpg"},
+    {"name":"赵冠淳","id":"3","img_src":"image/赵冠淳.jpg"},
 ];
 function createlist() {
     for (var i = 0;listarray[i].name!=null;i++) {
