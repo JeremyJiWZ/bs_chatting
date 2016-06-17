@@ -28,11 +28,13 @@ function chatwith(e){
 	$(".main-right .main-right-nav h2").text(name);
 }
 function getfrom(content){
+  var from_image = 'image/'+chatWithThis+'.jpg';
+  console.log(from_image);
   var fromid = "fromid" + numberFrom; 
   var testid = "idget" + numberFrom ;
   var $html =$("<div class='content' id="+fromid+">"     
 		+"<div class='chatmessage-1-image' >"
-		+"<img src='image/cong.jpg' width='40px' height='40px'/>"
+		+"<img src='"+from_image+"' width='40px' height='40px'/>"
 		+"</div>"
 		+"<div class='bubble_1'>"
 		+"<div class='bubble_cont'>"
@@ -48,11 +50,13 @@ function getfrom(content){
   numberFrom = numberFrom + 1;
 }
 function sendto(content){
+  var img_src ="image/"+$(".my-name").text()+".jpg";
+  console.log(img_src);
   var sendid = "sendid" + numberSend;
   var testid = "idsend" + numberSend ;
   var $html =$("<div class='content' id="+sendid+">"     
 		+"<div class='chatmessage-1-image' style='float:right;'>"
-		+"<img src='image/cong.jpg' width='40px' height='40px'/>"
+		+"<img src='"+img_src+"' width='40px' height='40px'/>"
 		+"</div>"
 		+"<div class='bubble'>"
 		+"<div class='bubble_cont'>"

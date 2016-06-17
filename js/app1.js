@@ -160,6 +160,7 @@ angular.module('weChat',['ui.router'])
 		console.log("the user2: "+$scope.userMessage['user']['name']);
 	});
 	$scope.userMessage['user']['name']=user_info['name'];
+	$scope.userMessage['user']['avatar']='image/'+user_info['name']+'.jpg';
 	
 	
 	
